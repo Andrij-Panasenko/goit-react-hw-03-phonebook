@@ -25,20 +25,19 @@ export class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.contacts !== this.state.contacts) {
-      localStorage.setItem(CONTACTS_KEY, JSON.stringify(this.state.contacts))
+      localStorage.setItem(CONTACTS_KEY, JSON.stringify(this.state.contacts));
     }
   }
 
   componentDidMount() {
-    const savedContacts = localStorage.getItem(CONTACTS_KEY)
+    const savedContacts = localStorage.getItem(CONTACTS_KEY);
 
     if (savedContacts) {
       this.setState({
-        contacts: JSON.parse(savedContacts)
-      })
+        contacts: JSON.parse(savedContacts),
+      });
     }
   }
-  
 
   addContact = newContact => {
     const hasContact = this.state.contacts.some(
@@ -74,7 +73,7 @@ export class App extends Component {
   };
 
   updateContactFilter = query => {
-    console.log(query)
+    console.log(query);
     this.setState({
       filter: query,
     });
@@ -82,13 +81,12 @@ export class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
-      const filteredContacts = contacts.filter(item => {
-        const hasContact = item.name
-          .toLowerCase()
-          .includes(filter.toLowerCase());
 
-        return hasContact;
-      });
+    const filteredContacts = contacts.filter(item => {
+      const hasContact = item.name.toLowerCase().includes(filter.toLowerCase());
+
+      return hasContact;
+    });
 
     return (
       <>
