@@ -15,11 +15,30 @@ const initialContacts = [
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 ];
 
+const CONTACTS_KEY = 'saved-contacts';
+
 export class App extends Component {
   state = {
     contacts: initialContacts,
     filter: '',
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem(CONTACTS_KEY, JSON.stringify(this.state.contacts))
+    }
+  }
+
+  componentDidMount() {
+    const savedContacts = localStorage.getItem(CONTACTS_KEY)
+
+    if (savedContacts) {
+      this.setState({
+        contacts: JSON.parse(savedContacts)
+      })
+    }
+  }
+  
 
   addContact = newContact => {
     const hasContact = this.state.contacts.some(
